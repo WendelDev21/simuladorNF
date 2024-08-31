@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerar Nfs-e</title>
+
+    <link rel="stylesheet" href="estilo.css">
+
+    <style>
+
+* {
+    font-family: Arial, sans-serif;
+}
+
+form, h1 {
+    text-align: center;
+    padding: 0px;
+}
+
+input {
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #333;
+    border-radius: 15px;
+}
+
+button {
+    border: 1px solid #fff;
+    border-radius: 15px;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #0059ff;
+    color: #fff;
+}
+
+button:hover {
+    background-color: #001aff;
+}
+
+    </style>
+</head>
+
+<body>
+
+    <h1>Emissor de Nfs-e</h1>
+
+    <form id="myForm">
+
+        <label for="cliente">Cliente:</label>
+        <input type="text" id="cliente" name="cliente" required>
+        <br>
+
+        <label for="cpfCnpj">CPF/CNPJ:</label>
+        <input type="text" id="cpfCnpj" name="cpfCnpj" required>
+        <br>
+
+        <label for="cep">CEP:</label>
+        <input type="text" id="cep" name="cep" required>
+        <br>
+
+        <label for="endereco">Endereço:</label>
+        <input type="text" id="endereco" name="endereco" required>
+        <br>
+
+        <label for="bairro">Bairro:</label>
+        <input type="text" id="bairro" name="bairro" required>
+        <br>
+
+        <label for="municipio">Município:</label>
+        <input type="text" id="municipio" name="municipio" required>
+        <br>
+
+        <label for="uf">UF:</label>
+        <input type="text" id="uf" name="uf" required>
+        <br>
+
+        <label for="inscricaoEstadual">inscricaoEstadual:</label>
+        <input type="text" id="inscricaoEstadual" name="inscricaoEstadual" required>
+        <br>
+
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" name="descricao" required>
+        <br>
+
+        <label for="quantidade">Quantidade:</label>
+        <input type="text" id="quantidade" name="quantidade" required>
+        <br>
+
+        <label for="valorUnitario">Valor Unitário:</label>
+        <input type="text" id="valorUnitario" name="valorUnitario" required>
+        <br>
+
+        <label for="valorTotal">Valor Total:</label>
+        <input type="text" id="valorTotal" name="valorTotal" required>
+        <br>
+
+        <button type="button" onclick="generatePDF()">Gerar Nfs-e</button>
+    
+    </form>
+
+    <!-- Inclua a biblioteca jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        function generatePDF() {
+            // Importa jsPDF
+            const { jsPDF } = window.jspdf;
+
+            // Obtém os dados do formulário
+            const cliente = document.getElementById('cliente').value;
+            const cpfCnpj = document.getElementById('cpfCnpj').value;
+            const cep = document.getElementById('cep').value;
+            const endereco = document.getElementById('endereco').value;
+            const bairro = document.getElementById('bairro').value;
+            const municipio = document.getElementById('municipio').value;
+            const uf = document.getElementById('uf').value;
+            const inscricaoEstadual = document.getElementById('inscricaoEstadual').value;
+            const descricao = document.getElementById('descricao').value;
+            const quantidade = document.getElementById('quantidade').value;
+            const valorUnitario = document.getElementById('valorUnitario').value;
+            const valorTotal = document.getElementById('valorTotal').value;
+
+            // Cria um novo documento PDF
+            const doc = new jsPDF();
+
+            // Adiciona texto ao PDF
+            doc.text(`Cliente: ${cliente}`, 10, 10);
+            doc.text(`CPF/CNPJ: ${cpfCnpj}`, 10, 20);
+            doc.text(`CEP: ${cep}`, 10, 30);
+            doc.text(`Endereço: ${endereco}`, 10, 40);
+            doc.text(`Bairro: ${bairro}`, 10, 50);
+            doc.text(`Município: ${municipio}`, 10, 60);
+            doc.text(`UF: ${uf}`, 10, 70);
+            doc.text(`Inscricao Estadual: ${inscricaoEstadual}`, 10, 80);
+            doc.text(`Descrição: ${descricao}`, 10, 90);
+            doc.text(`Quantidade: ${quantidade}`, 10, 100);
+            doc.text(`Valor Unitário: ${valorUnitario}`, 10, 110);
+            doc.text(`Valor Total: ${valorTotal}`, 10, 120);
+
+            // Salva o PDF
+            doc.save('Nfs-e.pdf');
+
+            document.getElementById('myForm').reset();
+        }
+    </script>
+</body>
+</html>
